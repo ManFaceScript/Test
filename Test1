@@ -1,3 +1,4 @@
+-- Function to create a button
 local function CreateButton(parent, size, position, text, callback)
     local button = Instance.new("TextButton")
     button.Parent = parent
@@ -45,6 +46,35 @@ local function CreateUIContainer(parent, size, position)
     frame.Position = UDim2.new(0, position.X, 0, position.Y)
     frame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
     frame.BackgroundTransparency = 0.5
+
+    -- Draggable functionality
+    local dragStart = nil
+    local startPos = nil
+
+    frame.InputBegan:Connect(function(input, gameProcessed)
+        if gameProcessed then return end
+
+        if input.UserInputType == Enum.UserInputType.MouseButton1 then
+            dragStart = input.Position
+            startPos = frame.Position
+
+            -- While dragging
+            frame.InputChanged:Connect(function(input)
+                if input.UserInputType == Enum.UserInputType.MouseMovement and dragStart then
+                    local delta = input.Position - dragStart
+                    frame.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+                end
+            end)
+        end
+    end)
+
+    -- Stop dragging when mouse button is released
+    frame.InputEnded:Connect(function(input)
+        if input.UserInputType == Enum.UserInputType.MouseButton1 then
+            dragStart = nil
+        end
+    end)
+
     return frame
 end
 
