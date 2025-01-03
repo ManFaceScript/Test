@@ -1,0 +1,40 @@
+local function CreateButton(parent, size, position, text, callback)
+    local button = Instance.new("TextButton")  -- Create a TextButton (a button)
+    button.Parent = parent  -- Set the parent of the button
+    button.Size = UDim2.new(0, size.X, 0, size.Y)  -- Set the size of the button
+    button.Position = UDim2.new(0, position.X, 0, position.Y)  -- Set position of the button
+    button.Text = text  -- Set the text displayed on the button
+    button.TextColor3 = Color3.fromRGB(255, 255, 255)  -- Set text color to white
+    button.BackgroundColor3 = Color3.fromRGB(0, 128, 255)  -- Set the background color
+
+    -- Button interaction (callback function)
+    button.MouseButton1Click:Connect(function()
+        callback()
+    end)
+
+    return button
+end
+
+local function CreateLabel(parent, size, position, text)
+    local label = Instance.new("TextLabel")
+    label.Parent = parent
+    label.Size = UDim2.new(0, size.X, 0, size.Y)
+    label.Position = UDim2.new(0, position.X, 0, position.Y)
+    label.Text = text
+    label.TextColor3 = Color3.fromRGB(255, 255, 255)
+    label.BackgroundTransparency = 1  -- Transparent background
+    label.TextSize = 18  -- Set the text size
+
+    return label
+end
+
+local function CreateUIContainer(parent, size, position)
+    local frame = Instance.new("Frame")
+    frame.Parent = parent
+    frame.Size = UDim2.new(0, size.X, 0, size.Y)
+    frame.Position = UDim2.new(0, position.X, 0, position.Y)
+    frame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+    frame.BackgroundTransparency = 0.5
+    return frame
+end
+
